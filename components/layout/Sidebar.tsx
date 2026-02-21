@@ -17,6 +17,8 @@ import {
     Wrench,
     Calculator,
     Layers,
+    Shield,
+    BarChart2,
 } from "lucide-react";
 
 interface NavItem {
@@ -34,7 +36,9 @@ const NAV_ITEMS: NavItem[] = [
     { label: "Drivers", href: "/drivers", icon: Users, group: "main" },
     { label: "Maintenance", href: "/maintenance", icon: Wrench, group: "main" },
     { label: "Finance", href: "/finance", icon: Calculator, group: "main" },
-    { label: "Settings", href: "/settings", icon: Settings, group: "main" },
+    { label: "Driver Performance", href: "/driver-performance", icon: Shield, group: "main" },
+    { label: "Analytics & Reports", href: "/analytics", icon: BarChart2, group: "main" },
+    { label: "Settings", href: "/settings", icon: Settings, group: "main" }
 ];
 
 interface SidebarProps {
@@ -127,7 +131,6 @@ export function Sidebar({ collapsed, onToggle, mobileOpen, onMobileClose }: Side
                         );
                     })}
                 </div>
-
             </nav>
 
             {/* User info bottom */}

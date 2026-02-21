@@ -1,4 +1,4 @@
-// File: C:\Users\S\FleetFlowxTECHTRONICS\app\settings\page.tsx
+// File: D:\FleetFlowxTECHTRONICS\app\settings\page.tsx
 import * as entry from '../../../../app/settings/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

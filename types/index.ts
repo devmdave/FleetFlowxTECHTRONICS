@@ -58,86 +58,6 @@ export interface VehicleFormData {
     nextServiceDue: number;
 }
 
-// ─── Trip ────────────────────────────────────────────────────────────────────
-
-export type TripStatus = "Scheduled" | "In Transit" | "Delivered" | "Cancelled";
-
-export interface Trip {
-    id: string;
-    vehicleId: string;
-    vehicleName: string;
-    driverId: string;
-    driverName: string;
-    origin: string;
-    destination: string;
-    cargoDescription: string;
-    weight: number; // kg
-    status: TripStatus;
-    scheduledDate: string;
-    estimatedArrival: string;
-    actualArrival?: string;
-    distance: number; // km
-    createdAt: string;
-}
-
-// ─── Driver ──────────────────────────────────────────────────────────────────
-
-export type DriverStatus = "Available" | "On Trip" | "Off Duty" | "Suspended";
-export type LicenseClass = "A" | "B" | "C" | "D" | "E";
-
-export interface Driver {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    licenseNumber: string;
-    licenseClass: LicenseClass;
-    licenseExpiry: string;
-    status: DriverStatus;
-    totalTrips: number;
-    safetyScore: number; // 0-100
-    region: string;
-    joinDate: string;
-    vehicleId?: string;
-}
-
-// ─── Finance ─────────────────────────────────────────────────────────────────
-
-export type ExpenseCategory = "Fuel" | "Maintenance" | "Insurance" | "Tolls" | "Salary" | "Other";
-
-export interface Expense {
-    id: string;
-    vehicleId?: string;
-    vehicleName?: string;
-    category: ExpenseCategory;
-    amount: number;
-    date: string;
-    description: string;
-    approvedBy?: string;
-}
-
-export interface FinanceSummary {
-    totalRevenue: number;
-    totalExpenses: number;
-    netProfit: number;
-    profitMargin: number;
-    monthlyTrend: MonthlyData[];
-    expensesByCategory: CategoryData[];
-}
-
-export interface MonthlyData {
-    month: string;
-    revenue: number;
-    expenses: number;
-    profit: number;
-}
-
-export interface CategoryData {
-    category: string;
-    amount: number;
-    percentage: number;
-}
-
 // ─── Dashboard KPIs ───────────────────────────────────────────────────────────
 
 export interface DashboardKPIs {
@@ -146,9 +66,6 @@ export interface DashboardKPIs {
     utilizationRate: number;
     pendingCargo: number;
     totalVehicles: number;
-    totalDrivers: number;
-    totalTripsThisMonth: number;
-    revenueThisMonth: number;
 }
 
 // ─── Filters ─────────────────────────────────────────────────────────────────

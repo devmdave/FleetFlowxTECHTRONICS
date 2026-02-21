@@ -8,9 +8,6 @@ import { cn } from "@/lib/utils";
 import {
     LayoutDashboard,
     Truck,
-    Route,
-    Users,
-    DollarSign,
     Settings,
     ChevronLeft,
     ChevronRight,
@@ -27,14 +24,6 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { label: "Vehicles", href: "/vehicles", icon: Truck },
-    { label: "Trips", href: "/trips", icon: Route },
-    { label: "Drivers", href: "/drivers", icon: Users },
-    {
-        label: "Finance",
-        href: "/finance",
-        icon: DollarSign,
-        allowedRoles: ["Manager", "Financial Analyst"],
-    },
     { label: "Settings", href: "/settings", icon: Settings },
 ];
 

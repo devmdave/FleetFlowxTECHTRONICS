@@ -4,19 +4,15 @@ import { useState, useMemo } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { UtilizationChart } from "@/components/dashboard/UtilizationChart";
-import { RecentActivity, PendingShipments } from "@/components/dashboard/RecentActivity";
+import { PendingShipments } from "@/components/dashboard/RecentActivity";
 import { useFleetStore } from "@/store/useFleetStore";
-import { mockTrips, mockDrivers, mockPendingShipments } from "@/lib/mockData";
-import { formatNumber, formatCurrency } from "@/lib/utils";
+import { mockPendingShipments } from "@/lib/mockData";
 import {
     Truck,
     Wrench,
     BarChart3,
     Package,
     ChevronDown,
-    Users,
-    Route,
-    DollarSign,
 } from "lucide-react";
 import type { VehicleType } from "@/types";
 
@@ -47,10 +43,6 @@ export default function DashboardPage() {
     const totalOperational = filteredVehicles.filter((v) => v.status !== "Retired").length;
     const utilizationRate = totalOperational > 0 ? Math.round((assignedCount / totalOperational) * 100) : 0;
     const pendingCargo = mockPendingShipments.length;
-
-    const totalDrivers = mockDrivers.length;
-    const activeDrivers = mockDrivers.filter((d) => d.status === "On Trip").length;
-    const totalTripsThisMonth = mockTrips.filter((t) => t.status !== "Cancelled").length;
 
     return (
         <AppShell pageTitle="Command Center">
@@ -148,50 +140,14 @@ export default function DashboardPage() {
                 />
             </div>
 
-            {/* Secondary KPI Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="card-base p-5 flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
-                        <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Drivers</p>
-                        <p className="text-xl font-bold text-foreground">{activeDrivers} <span className="text-sm font-normal text-muted-foreground">/ {totalDrivers} on duty</span></p>
-                    </div>
-                </div>
-                <div className="card-base p-5 flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center shrink-0">
-                        <Route className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Trips This Month</p>
-                        <p className="text-xl font-bold text-foreground">{totalTripsThisMonth} <span className="text-sm font-normal text-muted-foreground">completed</span></p>
-                    </div>
-                </div>
-                <div className="card-base p-5 flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-900/30 flex items-center justify-center shrink-0">
-                        <DollarSign className="w-5 h-5 text-rose-600 dark:text-rose-400" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Revenue (Jan)</p>
-                        <p className="text-xl font-bold text-foreground">{formatCurrency(235000)}</p>
-                    </div>
-                </div>
-            </div>
-
             {/* Chart + Pending Row */}
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
                 <div className="xl:col-span-2">
                     <UtilizationChart />
                 </div>
                 <div>
                     <PendingShipments />
                 </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="grid grid-cols-1 gap-4">
-                <RecentActivity />
             </div>
         </AppShell>
     );

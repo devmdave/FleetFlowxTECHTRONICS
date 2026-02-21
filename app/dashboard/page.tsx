@@ -49,7 +49,7 @@ export default function DashboardPage({ isComponent }: { isComponent?: boolean }
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                 <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-foreground">Command Center</h2>
+                    <h2 className="text-2xl font-bold text-foreground">Dashboard</h2>
                     <p className="text-sm text-muted-foreground mt-0.5">
                         Real-time fleet overview · {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                     </p>
@@ -154,5 +154,5 @@ export default function DashboardPage({ isComponent }: { isComponent?: boolean }
 
     if (isComponent) return content;
 
-    return <AppShell pageTitle="Command Center">{content}</AppShell>;
+    return <AppShell pageTitle="Dashboard">{content}</AppShell>;
 }

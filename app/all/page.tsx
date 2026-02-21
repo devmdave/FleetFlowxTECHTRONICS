@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 
 type Tab = "dashboard" | "vehicles" | "trips" | "maintenance" | "finance" | "settings";
 
-export default function MegaDashboardPage() {
+export function MegaDashboardPage() {
     const [activeTab, setActiveTab] = useState<Tab>("dashboard");
 
     return (
@@ -130,3 +130,4 @@ export function MegaDashboardWrapper() {
     );
 }
 
+export default MegaDashboardWrapper;

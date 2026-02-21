@@ -83,7 +83,7 @@ export interface VehicleFilters {
 
 // ─── Drivers ─────────────────────────────────────────────────────────────────
 
-export type DriverStatus = "Available" | "On Trip" | "Off Duty";
+export type DriverStatus = "Available" | "On Trip" | "Off Duty" | "Suspended";
 
 export interface Driver {
     id: string;

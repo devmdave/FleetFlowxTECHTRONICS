@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 type Tab = "trips" | "maintenance" | "finance";
 
-export default function CombinedOperationsPage() {
+export function CombinedOperationsPage() {
     const [activeTab, setActiveTab] = useState<Tab>("trips");
 
     return (
@@ -77,3 +77,5 @@ export function OperationsWrapper() {
         </AppShell>
     );
 }
+
+export default OperationsWrapper;

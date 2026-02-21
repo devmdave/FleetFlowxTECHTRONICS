@@ -12,7 +12,11 @@ import {
     ChevronLeft,
     ChevronRight,
     X,
-    Briefcase,
+    Users,
+    Package,
+    Wrench,
+    Calculator,
+    Layers,
 } from "lucide-react";
 
 interface NavItem {
@@ -20,10 +24,17 @@ interface NavItem {
     href: string;
     icon: React.ElementType;
     allowedRoles?: UserRole[];
+    group?: string;
 }
 
 const NAV_ITEMS: NavItem[] = [
-    { label: "All Modules", href: "/all", icon: LayoutDashboard },
+    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, group: "main" },
+    { label: "Vehicles", href: "/vehicles", icon: Truck, group: "main" },
+    { label: "Trips", href: "/trips", icon: Package, group: "main" },
+    { label: "Drivers", href: "/drivers", icon: Users, group: "main" },
+    { label: "Maintenance", href: "/maintenance", icon: Wrench, group: "main" },
+    { label: "Finance", href: "/finance", icon: Calculator, group: "main" },
+    { label: "Settings", href: "/settings", icon: Settings, group: "main" },
 ];
 
 interface SidebarProps {
@@ -85,34 +96,69 @@ export function Sidebar({ collapsed, onToggle, mobileOpen, onMobileClose }: Side
             </div>
 
             {/* Nav */}
-            <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <nav className="flex-1 px-3 py-4 overflow-y-auto custom-scrollbar">
+                {/* Main section */}
                 {!collapsed && (
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest px-2 mb-3">
-                        Navigation
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest px-2 mb-2">
+                        Main
                     </p>
                 )}
-                {visibleItems.map((item) => {
-                    const isActive = pathname === item.href;
-                    return (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={onMobileClose}
-                            className={cn(
-                                "sidebar-link",
-                                isActive && "active",
-                                collapsed && "justify-center px-2"
-                            )}
-                            title={collapsed ? item.label : undefined}
-                        >
-                            <item.icon className="w-4.5 h-4.5 shrink-0" size={18} />
-                            {!collapsed && <span>{item.label}</span>}
-                            {isActive && !collapsed && (
-                                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
-                            )}
-                        </Link>
-                    );
-                })}
+                <div className="space-y-0.5 mb-4">
+                    {visibleItems.filter(i => i.group === "main").map((item) => {
+                        const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                onClick={onMobileClose}
+                                className={cn(
+                                    "sidebar-link",
+                                    isActive && "active",
+                                    collapsed && "justify-center px-2"
+                                )}
+                                title={collapsed ? item.label : undefined}
+                            >
+                                <item.icon className="shrink-0" size={18} />
+                                {!collapsed && <span>{item.label}</span>}
+                                {isActive && !collapsed && (
+                                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
+                                )}
+                            </Link>
+                        );
+                    })}
+                </div>
+
+                {/* More section */}
+                {!collapsed && (
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest px-2 mb-2">
+                        More
+                    </p>
+                )}
+                {collapsed && <div className="border-t border-border my-2" />}
+                <div className="space-y-0.5">
+                    {visibleItems.filter(i => i.group === "more").map((item) => {
+                        const isActive = pathname === item.href;
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                onClick={onMobileClose}
+                                className={cn(
+                                    "sidebar-link",
+                                    isActive && "active",
+                                    collapsed && "justify-center px-2"
+                                )}
+                                title={collapsed ? item.label : undefined}
+                            >
+                                <item.icon className="shrink-0" size={18} />
+                                {!collapsed && <span>{item.label}</span>}
+                                {isActive && !collapsed && (
+                                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
+                                )}
+                            </Link>
+                        );
+                    })}
+                </div>
             </nav>
 
             {/* User info bottom */}

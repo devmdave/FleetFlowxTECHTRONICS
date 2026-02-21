@@ -128,37 +128,6 @@ export function Sidebar({ collapsed, onToggle, mobileOpen, onMobileClose }: Side
                     })}
                 </div>
 
-                {/* More section */}
-                {!collapsed && (
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest px-2 mb-2">
-                        More
-                    </p>
-                )}
-                {collapsed && <div className="border-t border-border my-2" />}
-                <div className="space-y-0.5">
-                    {visibleItems.filter(i => i.group === "more").map((item) => {
-                        const isActive = pathname === item.href;
-                        return (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                onClick={onMobileClose}
-                                className={cn(
-                                    "sidebar-link",
-                                    isActive && "active",
-                                    collapsed && "justify-center px-2"
-                                )}
-                                title={collapsed ? item.label : undefined}
-                            >
-                                <item.icon className="shrink-0" size={18} />
-                                {!collapsed && <span>{item.label}</span>}
-                                {isActive && !collapsed && (
-                                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
-                                )}
-                            </Link>
-                        );
-                    })}
-                </div>
             </nav>
 
             {/* User info bottom */}

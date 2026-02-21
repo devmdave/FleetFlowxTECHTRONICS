@@ -1013,10 +1013,6 @@ h1, h2, h3, h4, h5, h6{
   margin-left: auto;
   margin-right: auto;
 }
-.my-2{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
 .mb-0\.5{
   margin-bottom: 0.125rem;
 }

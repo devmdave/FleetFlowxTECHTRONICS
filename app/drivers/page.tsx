@@ -9,7 +9,6 @@ import {
     Search,
     ChevronDown,
     Shield,
-    Star,
     Phone,
     Mail,
     CreditCard,

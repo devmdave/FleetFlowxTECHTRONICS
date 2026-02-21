@@ -88,8 +88,15 @@ export type DriverStatus = "Available" | "On Trip" | "Off Duty" | "Suspended";
 export interface Driver {
     id: string;
     name: string;
+    email: string;
+    phone: string;
     status: DriverStatus;
+    region: string;
     licenseNumber: string;
+    licenseClass: string;
+    licenseExpiry: string; // ISO date
+    safetyScore: number;   // 0–100
+    totalTrips: number;
 }
 
 // ─── Trips ───────────────────────────────────────────────────────────────────

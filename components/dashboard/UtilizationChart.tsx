@@ -13,12 +13,24 @@ import {
 import { mockMonthlyData } from "@/lib/mockData";
 import { formatCurrency } from "@/lib/utils";
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipPayloadItem {
+    dataKey: string;
+    color: string;
+    value: number;
+}
+
+interface CustomTooltipProps {
+    active?: boolean;
+    payload?: TooltipPayloadItem[];
+    label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     if (active && payload && payload.length) {
         return (
             <div className="bg-card border border-border rounded-xl shadow-lg px-4 py-3 text-sm">
                 <p className="font-semibold text-foreground mb-2">{label}</p>
-                {payload.map((p: any) => (
+                {payload.map((p: TooltipPayloadItem) => (
                     <div key={p.dataKey} className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
                         <span className="text-muted-foreground capitalize">{p.dataKey}:</span>

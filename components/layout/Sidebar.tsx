@@ -12,6 +12,7 @@ import {
     ChevronLeft,
     ChevronRight,
     X,
+    Briefcase,
 } from "lucide-react";
 
 interface NavItem {
@@ -22,9 +23,7 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Vehicles", href: "/vehicles", icon: Truck },
-    { label: "Settings", href: "/settings", icon: Settings },
+    { label: "All Modules", href: "/all", icon: LayoutDashboard },
 ];
 
 interface SidebarProps {

@@ -81,10 +81,66 @@ export interface VehicleFilters {
     pageSize: number;
 }
 
+// ─── Drivers ─────────────────────────────────────────────────────────────────
+
+export type DriverStatus = "Available" | "On Trip" | "Off Duty";
+
+export interface Driver {
+    id: string;
+    name: string;
+    status: DriverStatus;
+    licenseNumber: string;
+}
+
+// ─── Trips ───────────────────────────────────────────────────────────────────
+
+export type TripStatus = "Draft" | "Dispatched" | "Completed" | "Cancelled";
+
+export interface Trip {
+    id: string;
+    vehicleId: string;
+    driverId: string; // Refers to Driver.id
+    cargoWeight: number;
+    origin: string;
+    destination: string;
+    status: TripStatus;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// ─── Maintenance ─────────────────────────────────────────────────────────────
+
+export type ServiceType = "Preventive" | "Repair";
+
+export interface ServiceLog {
+    id: string;
+    vehicleId: string; // Refers to Vehicle.id
+    serviceType: ServiceType;
+    description: string;
+    cost: number;
+    date: string; // ISO string 
+    status: "Open" | "Completed";
+}
+
+// ─── Finance ─────────────────────────────────────────────────────────────────
+
+export interface FuelLog {
+    id: string;
+    vehicleId: string; // Refers to Vehicle.id
+    liters: number;
+    cost: number;
+    date: string;
+}
+
 // ─── Fleet Store ─────────────────────────────────────────────────────────────
 
 export interface FleetState {
     vehicles: Vehicle[];
+    drivers: Driver[];
+    trips: Trip[];
+    serviceLogs: ServiceLog[];
+    fuelLogs: FuelLog[];
+
     filters: VehicleFilters;
     addVehicle: (vehicle: VehicleFormData) => void;
     updateVehicle: (id: string, vehicle: Partial<VehicleFormData>) => void;
@@ -93,6 +149,15 @@ export interface FleetState {
     setFilters: (filters: Partial<VehicleFilters>) => void;
     resetFilters: () => void;
     getFilteredVehicles: () => Vehicle[];
+
+    // New actions
+    addTrip: (trip: Omit<Trip, "id" | "createdAt" | "updatedAt" | "status">) => void;
+    updateTripStatus: (id: string, status: TripStatus) => void;
+
+    addServiceLog: (log: Omit<ServiceLog, "id" | "status">) => void;
+    completeServiceLog: (id: string) => void;
+
+    addFuelLog: (log: Omit<FuelLog, "id">) => void;
 }
 
 // ─── Toast ───────────────────────────────────────────────────────────────────

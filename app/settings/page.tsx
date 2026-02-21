@@ -39,7 +39,7 @@ const NOTIF_LABELS: Record<keyof NotifsState, { label: string; desc: string }> =
     finance: { label: "Finance Reports", desc: "Monthly financial summaries" },
 };
 
-export default function SettingsPage() {
+export default function SettingsPage({ isComponent }: { isComponent?: boolean }) {
     const { user } = useAuthStore();
     const { showToast } = useToast();
     const [activeTab, setActiveTab] = useState("profile");
@@ -61,8 +61,8 @@ export default function SettingsPage() {
         setNotifs((prev) => ({ ...prev, [key]: !prev[key] }));
     };
 
-    return (
-        <AppShell pageTitle="Settings">
+    const content = (
+        <>
             <div className="mb-6">
                 <h2 className="text-2xl font-bold text-foreground">Settings</h2>
                 <p className="text-sm text-muted-foreground mt-0.5">
@@ -332,6 +332,10 @@ export default function SettingsPage() {
                     </div>
                 </div>
             </div>
-        </AppShell>
+        </>
     );
+
+    if (isComponent) return content;
+
+    return <AppShell pageTitle="Settings">{content}</AppShell>;
 }

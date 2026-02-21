@@ -65,7 +65,7 @@ export default function LoginPage() {
         setLoading(false);
 
         if (success) {
-            router.push("/dashboard");
+            router.push("/all");
         } else {
             setError("Invalid credentials. Try the demo credentials below.");
         }

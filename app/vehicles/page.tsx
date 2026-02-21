@@ -37,7 +37,7 @@ import {
 const STATUSES: (VehicleStatus | "All")[] = ["All", "Active", "On Trip", "In Shop", "Retired"];
 const TYPES: (VehicleType | "All")[] = ["All", "Truck", "Van", "Sedan", "SUV", "Bus", "Motorcycle"];
 
-export default function VehiclesPage() {
+export default function VehiclesPage({ isComponent }: { isComponent?: boolean }) {
     const { vehicles, addVehicle, updateVehicle, deleteVehicle, toggleOutOfService } = useFleetStore();
     const user = useAuthStore((s) => s.user);
     const { showToast } = useToast();
@@ -129,8 +129,8 @@ export default function VehiclesPage() {
         );
     };
 
-    return (
-        <AppShell pageTitle="Vehicle Registry">
+    const content = (
+        <>
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                 <div className="flex-1">
@@ -422,6 +422,10 @@ export default function VehiclesPage() {
                 onConfirm={handleDelete}
                 onClose={() => setDeleteTarget(null)}
             />
-        </AppShell>
+        </>
     );
+
+    if (isComponent) return content;
+
+    return <AppShell pageTitle="Vehicle Registry">{content}</AppShell>;
 }

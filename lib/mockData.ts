@@ -236,3 +236,14 @@ export const mockUsers = [
     { email: "safety@fleetflow.io", password: "safe123", name: "Sam Rivera", role: "Safety Officer" as const },
     { email: "finance@fleetflow.io", password: "fin123", name: "Taylor Kim", role: "Financial Analyst" as const },
 ];
+
+// ─── Chart Data ───────────────────────────────────────────────────────────────
+
+export const mockMonthlyData = [
+    { month: "Jan", revenue: 45000, expenses: 32000, profit: 13000 },
+    { month: "Feb", revenue: 52000, expenses: 34000, profit: 18000 },
+    { month: "Mar", revenue: 48000, expenses: 31000, profit: 17000 },
+    { month: "Apr", revenue: 61000, expenses: 38000, profit: 23000 },
+    { month: "May", revenue: 59000, expenses: 39000, profit: 20000 },
+    { month: "Jun", revenue: 67000, expenses: 42000, profit: 25000 },
+];

@@ -20,7 +20,7 @@ const VEHICLE_TYPES: (VehicleType | "All")[] = ["All", "Truck", "Van", "Sedan", 
 const REGIONS = ["All Regions", "North", "South", "East", "West"];
 const STATUSES = ["All Status", "Active", "On Trip", "In Shop", "Retired"];
 
-export default function DashboardPage() {
+export default function DashboardPage({ isComponent }: { isComponent?: boolean }) {
     const vehicles = useFleetStore((s) => s.vehicles);
 
     const [typeFilter, setTypeFilter] = useState<string>("All");
@@ -44,8 +44,8 @@ export default function DashboardPage() {
     const utilizationRate = totalOperational > 0 ? Math.round((assignedCount / totalOperational) * 100) : 0;
     const pendingCargo = mockPendingShipments.length;
 
-    return (
-        <AppShell pageTitle="Command Center">
+    const content = (
+        <>
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                 <div className="flex-1">
@@ -149,6 +149,10 @@ export default function DashboardPage() {
                     <PendingShipments />
                 </div>
             </div>
-        </AppShell>
+        </>
     );
+
+    if (isComponent) return content;
+
+    return <AppShell pageTitle="Command Center">{content}</AppShell>;
 }

@@ -1,13 +1,11 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
   "/login/page": "app/login/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/drivers/page": "app/drivers/page.js",
   "/settings/page": "app/settings/page.js",
-  "/vehicles/page": "app/vehicles/page.js",
-  "/trips/page": "app/trips/page.js",
   "/maintenance/page": "app/maintenance/page.js",
-  "/driver-performance/page": "app/driver-performance/page.js",
-  "/analytics/page": "app/analytics/page.js",
+  "/vehicles/page": "app/vehicles/page.js",
   "/finance/page": "app/finance/page.js",
-  "/drivers/page": "app/drivers/page.js"
+  "/analytics/page": "app/analytics/page.js"
 }

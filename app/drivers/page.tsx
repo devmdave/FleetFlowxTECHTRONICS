@@ -40,7 +40,7 @@ export default function DriversPage() {
     const avgScore = Math.round(mockDrivers.reduce((acc, d) => acc + d.safetyScore, 0) / mockDrivers.length);
 
     return (
-        <AppShell pageTitle="Drivers">
+        <AppShell pageTitle="Drivers" requiredRoles={["Safety Officer", "Dispatcher"]}>
             <div className="mb-6">
                 <h2 className="text-2xl font-bold text-foreground">Drivers</h2>
                 <p className="text-sm text-muted-foreground mt-0.5">

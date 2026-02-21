@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { useFleetStore } from "@/store/useFleetStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { useToast } from "@/components/layout/ToastProvider";
 import { cn } from "@/lib/utils";
 import type { ServiceType } from "@/types";
@@ -11,6 +12,9 @@ import { Plus, X, Wrench, Truck, PenTool, Calendar, DollarSign } from "lucide-re
 export default function MaintenancePage({ isComponent }: { isComponent?: boolean }) {
     const { vehicles, serviceLogs, addServiceLog, completeServiceLog } = useFleetStore();
     const { showToast } = useToast();
+    const user = useAuthStore((s) => s.user);
+
+    const canManageService = user?.role === "Manager";
 
     // Form State
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -60,7 +64,7 @@ export default function MaintenancePage({ isComponent }: { isComponent?: boolean
                     <h2 className="text-2xl font-bold text-foreground">Maintenance & Service</h2>
                     <p className="text-sm text-muted-foreground mt-0.5">Track vehicle servicing and maintenance logs.</p>
                 </div>
-                {!isFormOpen && (
+                {canManageService && !isFormOpen && (
                     <button onClick={() => setIsFormOpen(true)} className="btn-primary shrink-0">
                         <Plus className="w-4 h-4" />
                         Log Service
@@ -216,12 +220,16 @@ export default function MaintenancePage({ isComponent }: { isComponent?: boolean
                                             <td>
                                                 <div className="flex items-center justify-end">
                                                     {log.status === "Open" ? (
-                                                        <button
-                                                            onClick={() => handleComplete(log.id, log.vehicleId)}
-                                                            className="text-xs px-3 py-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 rounded-lg transition-colors font-medium border border-emerald-200 dark:border-emerald-800"
-                                                        >
-                                                            Mark Completed
-                                                        </button>
+                                                        canManageService ? (
+                                                            <button
+                                                                onClick={() => handleComplete(log.id, log.vehicleId)}
+                                                                className="text-xs px-3 py-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 rounded-lg transition-colors font-medium border border-emerald-200 dark:border-emerald-800"
+                                                            >
+                                                                Mark Completed
+                                                            </button>
+                                                        ) : (
+                                                            <span className="text-xs text-amber-600 font-medium">Pending</span>
+                                                        )
                                                     ) : (
                                                         <span className="text-xs text-muted-foreground italic">Done</span>
                                                     )}
@@ -242,5 +250,5 @@ export default function MaintenancePage({ isComponent }: { isComponent?: boolean
         return content;
     }
 
-    return <AppShell pageTitle="Maintenance & Service">{content}</AppShell>;
+    return <AppShell pageTitle="Maintenance & Service" requiredRoles={["Manager", "Financial Analyst"]}>{content}</AppShell>;
 }

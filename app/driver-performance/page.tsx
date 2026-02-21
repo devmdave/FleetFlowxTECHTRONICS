@@ -516,7 +516,7 @@ export default function DriverPerformanceSafetyPage() {
     const avgSafety = Math.round(performanceData.reduce((a, b) => a + b.safetyScore, 0) / totalDrivers);
 
     return (
-        <AppShell pageTitle="Driver Performance & Safety">
+        <AppShell pageTitle="Driver Performance & Safety" requiredRoles={["Safety Officer"]}>
             {/* Page Header */}
             <div className="mb-6">
                 <div className="flex items-center gap-3 mb-1">

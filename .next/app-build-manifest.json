@@ -16,50 +16,45 @@
       "static/chunks/main-app.js",
       "static/chunks/app/login/page.js"
     ],
-    "/settings/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/settings/page.js"
-    ],
     "/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/page.js"
-    ],
-    "/vehicles/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/vehicles/page.js"
-    ],
-    "/trips/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/trips/page.js"
     ],
     "/drivers/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/drivers/page.js"
     ],
-    "/finance/page": [
+    "/driver-performance/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/finance/page.js"
+      "static/chunks/app/driver-performance/page.js"
+    ],
+    "/settings/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/settings/page.js"
     ],
     "/maintenance/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/maintenance/page.js"
     ],
-    "/driver-performance/page": [
+    "/vehicles/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/driver-performance/page.js"
+      "static/chunks/app/vehicles/page.js"
     ],
     "/analytics/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/analytics/page.js"
+    ],
+    "/finance/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/finance/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

@@ -42,8 +42,11 @@ export default function VehiclesPage({ isComponent }: { isComponent?: boolean })
     const user = useAuthStore((s) => s.user);
     const { showToast } = useToast();
 
-    const isReadOnly = user?.role === "Safety Officer";
+    const canAdd = user?.role === "Manager";
+    const canEdit = user?.role === "Manager" || user?.role === "Dispatcher";
     const canDelete = user?.role === "Manager";
+    const canToggleService = user?.role === "Manager";
+    const isReadOnly = user?.role === "Financial Analyst";
 
     // Local filter state
     const [search, setSearch] = useState("");
@@ -139,7 +142,7 @@ export default function VehiclesPage({ isComponent }: { isComponent?: boolean })
                         {vehicles.length} total vehicles · {vehicles.filter((v) => v.status === "Active" || v.status === "On Trip").length} operational
                     </p>
                 </div>
-                {!isReadOnly && (
+                {canAdd && (
                     <button
                         id="add-vehicle-btn"
                         onClick={() => setAddOpen(true)}
@@ -215,7 +218,7 @@ export default function VehiclesPage({ isComponent }: { isComponent?: boolean })
                                 ? "Try adjusting your filters or search query."
                                 : "Start by adding your first fleet vehicle."}
                         </p>
-                        {!isReadOnly && !search && statusFilter === "All" && typeFilter === "All" && (
+                        {canAdd && !search && statusFilter === "All" && typeFilter === "All" && (
                             <button onClick={() => setAddOpen(true)} className="btn-primary mt-4">
                                 <Plus className="w-4 h-4" /> Add Vehicle
                             </button>
@@ -305,21 +308,23 @@ export default function VehiclesPage({ isComponent }: { isComponent?: boolean })
                                             <span className="text-xs text-muted-foreground">{v.region}</span>
                                         </td>
                                         <td>
-                                            {!isReadOnly && (
+                                            {canEdit && (
                                                 <div className="flex items-center justify-end gap-1">
                                                     {/* Toggle Out of Service */}
-                                                    <button
-                                                        onClick={() => handleToggleService(v)}
-                                                        title={v.status === "Retired" ? "Reactivate vehicle" : "Mark as retired"}
-                                                        className={cn(
-                                                            "p-1.5 rounded-lg transition-colors",
-                                                            v.status === "Retired"
-                                                                ? "text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
-                                                                : "text-muted-foreground hover:bg-muted hover:text-amber-600"
-                                                        )}
-                                                    >
-                                                        {v.status === "Retired" ? <Power className="w-4 h-4" /> : <PowerOff className="w-4 h-4" />}
-                                                    </button>
+                                                    {canToggleService && (
+                                                        <button
+                                                            onClick={() => handleToggleService(v)}
+                                                            title={v.status === "Retired" ? "Reactivate vehicle" : "Mark as retired"}
+                                                            className={cn(
+                                                                "p-1.5 rounded-lg transition-colors",
+                                                                v.status === "Retired"
+                                                                    ? "text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
+                                                                    : "text-muted-foreground hover:bg-muted hover:text-amber-600"
+                                                            )}
+                                                        >
+                                                            {v.status === "Retired" ? <Power className="w-4 h-4" /> : <PowerOff className="w-4 h-4" />}
+                                                        </button>
+                                                    )}
 
                                                     {/* Edit */}
                                                     <button
@@ -427,5 +432,5 @@ export default function VehiclesPage({ isComponent }: { isComponent?: boolean })
 
     if (isComponent) return content;
 
-    return <AppShell pageTitle="Vehicle Registry">{content}</AppShell>;
+    return <AppShell pageTitle="Vehicle Registry" requiredRoles={["Manager", "Dispatcher", "Financial Analyst"]}>{content}</AppShell>;
 }

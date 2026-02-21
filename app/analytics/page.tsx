@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { AppShell } from "@/components/layout/AppShell";
+import { useAuthStore } from "@/store/useAuthStore";
 import { mockVehicles } from "@/lib/mockData";
 import { cn, formatCurrency } from "@/lib/utils";
 import {
@@ -373,7 +374,10 @@ const FuelTooltip = ({ active, payload, label }: { active?: boolean; payload?: A
 const MONTH_OPTIONS = ["All", ...MONTHS];
 
 export default function OperationalAnalyticsFinancialReportsPage() {
+    const user = useAuthStore((s) => s.user);
     const [selectedMonth, setSelectedMonth] = useState("All");
+
+    const isFinancialAnalyst = user?.role === "Financial Analyst";
 
     const allAnalytics = useMemo(() => buildAnalytics(MOCK_VEHICLE_ANALYTICS_BASE), []);
 
@@ -394,7 +398,7 @@ export default function OperationalAnalyticsFinancialReportsPage() {
     const positiveROI = allAnalytics.filter((v) => v.roi > 0).length;
 
     return (
-        <AppShell pageTitle="Analytics & Financial Reports">
+        <AppShell pageTitle="Analytics & Financial Reports" requiredRoles={["Financial Analyst", "Manager"]}>
             {/* Page Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
@@ -410,24 +414,26 @@ export default function OperationalAnalyticsFinancialReportsPage() {
                 </div>
 
                 {/* Export Buttons */}
-                <div className="flex items-center gap-2 shrink-0">
-                    <button
-                        id="export-csv-btn"
-                        onClick={() => exportToCSV(allAnalytics, monthlyData, selectedMonth)}
-                        className="btn-secondary gap-1.5 text-xs"
-                    >
-                        <Download className="w-3.5 h-3.5" />
-                        Export CSV
-                    </button>
-                    <button
-                        id="export-pdf-btn"
-                        onClick={() => exportToPDF(allAnalytics, monthlyData, selectedMonth)}
-                        className="btn-primary gap-1.5 text-xs"
-                    >
-                        <FileText className="w-3.5 h-3.5" />
-                        Export PDF
-                    </button>
-                </div>
+                {isFinancialAnalyst && (
+                    <div className="flex items-center gap-2 shrink-0">
+                        <button
+                            id="export-csv-btn"
+                            onClick={() => exportToCSV(allAnalytics, monthlyData, selectedMonth)}
+                            className="btn-secondary gap-1.5 text-xs"
+                        >
+                            <Download className="w-3.5 h-3.5" />
+                            Export CSV
+                        </button>
+                        <button
+                            id="export-pdf-btn"
+                            onClick={() => exportToPDF(allAnalytics, monthlyData, selectedMonth)}
+                            className="btn-primary gap-1.5 text-xs"
+                        >
+                            <FileText className="w-3.5 h-3.5" />
+                            Export PDF
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Month Filter */}
@@ -727,21 +733,23 @@ export default function OperationalAnalyticsFinancialReportsPage() {
 
                 {/* Table Footer */}
                 <div className="flex items-center justify-between px-4 py-3 border-t border-border bg-muted/20">
-                    <span className="text-xs text-muted-foreground">{allAnalytics.length} vehicles · Click Export buttons to download full reports</span>
-                    <div className="flex gap-2">
-                        <button
-                            onClick={() => exportToCSV(allAnalytics, monthlyData, selectedMonth)}
-                            className="btn-ghost text-xs py-1.5 px-2.5 gap-1"
-                        >
-                            <Download className="w-3 h-3" /> CSV
-                        </button>
-                        <button
-                            onClick={() => exportToPDF(allAnalytics, monthlyData, selectedMonth)}
-                            className="btn-ghost text-xs py-1.5 px-2.5 gap-1"
-                        >
-                            <FileText className="w-3 h-3" /> PDF
-                        </button>
-                    </div>
+                    <span className="text-xs text-muted-foreground">{allAnalytics.length} vehicles · {isFinancialAnalyst ? "Click Export buttons to download full reports" : "Data reflecting current operational records"}</span>
+                    {isFinancialAnalyst && (
+                        <div className="flex gap-2">
+                            <button
+                                onClick={() => exportToCSV(allAnalytics, monthlyData, selectedMonth)}
+                                className="btn-ghost text-xs py-1.5 px-2.5 gap-1"
+                            >
+                                <Download className="w-3 h-3" /> CSV
+                            </button>
+                            <button
+                                onClick={() => exportToPDF(allAnalytics, monthlyData, selectedMonth)}
+                                className="btn-ghost text-xs py-1.5 px-2.5 gap-1"
+                            >
+                                <FileText className="w-3 h-3" /> PDF
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </AppShell>

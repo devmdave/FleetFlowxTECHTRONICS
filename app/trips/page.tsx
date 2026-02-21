@@ -260,5 +260,5 @@ export default function TripsPage({ isComponent }: { isComponent?: boolean }) {
         return content;
     }
 
-    return <AppShell pageTitle="Trip Dispatcher">{content}</AppShell>;
+    return <AppShell pageTitle="Trip Dispatcher" requiredRoles={["Dispatcher"]}>{content}</AppShell>;
 }

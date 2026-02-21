@@ -230,5 +230,5 @@ export default function FinancePage({ isComponent }: { isComponent?: boolean }) 
         return content;
     }
 
-    return <AppShell pageTitle="Finance & Operations">{content}</AppShell>;
+    return <AppShell pageTitle="Finance & Operations" requiredRoles={["Financial Analyst"]}>{content}</AppShell>;
 }

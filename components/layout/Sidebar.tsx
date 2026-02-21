@@ -31,13 +31,13 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, group: "main" },
-    { label: "Vehicles", href: "/vehicles", icon: Truck, group: "main" },
-    { label: "Trips", href: "/trips", icon: Package, group: "main" },
-    { label: "Drivers", href: "/drivers", icon: Users, group: "main" },
-    { label: "Maintenance", href: "/maintenance", icon: Wrench, group: "main" },
-    { label: "Finance", href: "/finance", icon: Calculator, group: "main" },
-    { label: "Driver Performance", href: "/driver-performance", icon: Shield, group: "main" },
-    { label: "Analytics & Reports", href: "/analytics", icon: BarChart2, group: "main" },
+    { label: "Vehicles", href: "/vehicles", icon: Truck, group: "main", allowedRoles: ["Manager", "Dispatcher", "Financial Analyst"] },
+    { label: "Trips", href: "/trips", icon: Package, group: "main", allowedRoles: ["Dispatcher"] },
+    { label: "Drivers", href: "/drivers", icon: Users, group: "main", allowedRoles: ["Safety Officer", "Dispatcher"] },
+    { label: "Maintenance", href: "/maintenance", icon: Wrench, group: "main", allowedRoles: ["Manager", "Financial Analyst"] },
+    { label: "Finance", href: "/finance", icon: Calculator, group: "main", allowedRoles: ["Financial Analyst"] },
+    { label: "Driver Performance", href: "/driver-performance", icon: Shield, group: "main", allowedRoles: ["Safety Officer"] },
+    { label: "Analytics & Reports", href: "/analytics", icon: BarChart2, group: "main", allowedRoles: ["Financial Analyst", "Manager"] },
     { label: "Settings", href: "/settings", icon: Settings, group: "main" }
 ];
 
